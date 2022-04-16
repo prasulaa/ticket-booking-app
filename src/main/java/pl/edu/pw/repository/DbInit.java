@@ -2,7 +2,6 @@ package pl.edu.pw.repository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pw.domain.Movie;
 import pl.edu.pw.domain.Room;
 import pl.edu.pw.domain.Screening;
