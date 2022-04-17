@@ -9,6 +9,8 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Integer seatRow;
+    private Integer seatNumber;
     private String firstName;
     private String lastName;
     private TicketType ticketType;
@@ -18,8 +20,10 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Long id, String firstName, String lastName, TicketType ticketType, Screening screening) {
+    public Reservation(Long id, Integer seatRow, Integer seatNumber, String firstName, String lastName, TicketType ticketType, Screening screening) {
         this.id = id;
+        this.seatRow = seatRow;
+        this.seatNumber = seatNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.ticketType = ticketType;
@@ -65,4 +69,21 @@ public class Reservation {
     public void setScreening(Screening screening) {
         this.screening = screening;
     }
+
+    public Integer getSeatRow() {
+        return seatRow;
+    }
+
+    public void setSeatRow(Integer seatRow) {
+        this.seatRow = seatRow;
+    }
+
+    public Integer getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(Integer seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
 }

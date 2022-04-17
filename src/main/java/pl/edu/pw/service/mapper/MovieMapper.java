@@ -1,5 +1,7 @@
 package pl.edu.pw.service.mapper;
 
+import pl.edu.pw.domain.Movie;
+import pl.edu.pw.dto.MovieDTO;
 import pl.edu.pw.dto.MovieRepertoireDTO;
 import pl.edu.pw.dto.ScreeningTimeDTO;
 
@@ -15,7 +17,7 @@ public class MovieMapper {
         Map<Long, MovieRepertoireDTO> moviesMap = mapToMap(moviesDB);
 
         List<MovieRepertoireDTO> moviesList = new ArrayList<>();
-        for(MovieRepertoireDTO m: moviesMap.values()) {
+        for (MovieRepertoireDTO m : moviesMap.values()) {
             m.getScreeningTimes().sort(Comparator.comparing(ScreeningTimeDTO::getDate).thenComparing(ScreeningTimeDTO::getTime));
             moviesList.add(m);
         }
@@ -23,18 +25,28 @@ public class MovieMapper {
         return moviesList;
     }
 
+    public static MovieDTO map(Movie movie) {
+        if (movie == null) {
+            return null;
+        } else {
+            return new MovieDTO(
+                    movie.getId(),
+                    movie.getTitle());
+        }
+    }
+
     private static Map<Long, MovieRepertoireDTO> mapToMap(List<Object[]> moviesDB) {
         Map<Long, MovieRepertoireDTO> movies = new HashMap<>();
 
-        for(Object[] o: moviesDB) {
-            Long movieId = ((BigInteger)o[0]).longValue();
+        for (Object[] o : moviesDB) {
+            Long movieId = ((BigInteger) o[0]).longValue();
             if (movies.containsKey(movieId)) {
                 MovieRepertoireDTO movie = movies.get(movieId);
                 movie.getScreeningTimes().add(mapToScreeningTime(o));
             } else {
                 List<ScreeningTimeDTO> screeningTimes = new ArrayList<>();
                 screeningTimes.add(mapToScreeningTime(o));
-                MovieRepertoireDTO movie = new MovieRepertoireDTO(movieId, (String)o[1], screeningTimes);
+                MovieRepertoireDTO movie = new MovieRepertoireDTO(movieId, (String) o[1], screeningTimes);
                 movies.put(movie.getId(), movie);
             }
         }
@@ -44,9 +56,9 @@ public class MovieMapper {
 
     private static ScreeningTimeDTO mapToScreeningTime(Object[] o) {
         return new ScreeningTimeDTO(
-                ((BigInteger)o[2]).longValue(),
-                ((Date)o[3]).toLocalDate(),
-                ((Time)o[4]).toLocalTime());
+                ((BigInteger) o[2]).longValue(),
+                ((Date) o[3]).toLocalDate(),
+                ((Time) o[4]).toLocalTime());
     }
 
 }
