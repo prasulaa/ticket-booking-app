@@ -2,16 +2,16 @@ package pl.edu.pw.dto;
 
 import java.util.List;
 
-public class MovieDTO {
+public class MovieRepertoireDTO {
 
     private Long id;
     private String title;
     private List<ScreeningTimeDTO> screeningTimes;
 
-    public MovieDTO() {
+    public MovieRepertoireDTO() {
     }
 
-    public MovieDTO(Long id, String title, List<ScreeningTimeDTO> screeningTimes) {
+    public MovieRepertoireDTO(Long id, String title, List<ScreeningTimeDTO> screeningTimes) {
         this.id = id;
         this.title = title;
         this.screeningTimes = screeningTimes;

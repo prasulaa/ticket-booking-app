@@ -1,6 +1,6 @@
 package pl.edu.pw.service.mapper;
 
-import pl.edu.pw.dto.MovieDTO;
+import pl.edu.pw.dto.MovieRepertoireDTO;
 import pl.edu.pw.dto.ScreeningTimeDTO;
 
 import java.math.BigInteger;
@@ -11,30 +11,30 @@ import java.util.*;
 
 public class MovieMapper {
 
-    public static List<MovieDTO> map(List<Object[]> moviesDB) {
-        Map<Long, MovieDTO> moviesMap = mapToMap(moviesDB);
+    public static List<MovieRepertoireDTO> map(List<Object[]> moviesDB) {
+        Map<Long, MovieRepertoireDTO> moviesMap = mapToMap(moviesDB);
 
-        List<MovieDTO> moviesList = new ArrayList<>();
-        for(MovieDTO m: moviesMap.values()) {
+        List<MovieRepertoireDTO> moviesList = new ArrayList<>();
+        for(MovieRepertoireDTO m: moviesMap.values()) {
             m.getScreeningTimes().sort(Comparator.comparing(ScreeningTimeDTO::getDate).thenComparing(ScreeningTimeDTO::getTime));
             moviesList.add(m);
         }
-        moviesList.sort(Comparator.comparing(MovieDTO::getTitle));
+        moviesList.sort(Comparator.comparing(MovieRepertoireDTO::getTitle));
         return moviesList;
     }
 
-    private static Map<Long, MovieDTO> mapToMap(List<Object[]> moviesDB) {
-        Map<Long, MovieDTO> movies = new HashMap<>();
+    private static Map<Long, MovieRepertoireDTO> mapToMap(List<Object[]> moviesDB) {
+        Map<Long, MovieRepertoireDTO> movies = new HashMap<>();
 
         for(Object[] o: moviesDB) {
             Long movieId = ((BigInteger)o[0]).longValue();
             if (movies.containsKey(movieId)) {
-                MovieDTO movie = movies.get(movieId);
+                MovieRepertoireDTO movie = movies.get(movieId);
                 movie.getScreeningTimes().add(mapToScreeningTime(o));
             } else {
                 List<ScreeningTimeDTO> screeningTimes = new ArrayList<>();
                 screeningTimes.add(mapToScreeningTime(o));
-                MovieDTO movie = new MovieDTO(movieId, (String)o[1], screeningTimes);
+                MovieRepertoireDTO movie = new MovieRepertoireDTO(movieId, (String)o[1], screeningTimes);
                 movies.put(movie.getId(), movie);
             }
         }
