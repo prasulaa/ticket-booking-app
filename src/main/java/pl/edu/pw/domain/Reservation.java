@@ -14,7 +14,7 @@ public class Reservation {
     private String firstName;
     private String lastName;
     private TicketType ticketType;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Screening screening;
 
     public Reservation() {
