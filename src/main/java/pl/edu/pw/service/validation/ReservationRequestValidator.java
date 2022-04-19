@@ -47,11 +47,23 @@ public class ReservationRequestValidator {
     }
 
     private static void validateSeats(ReservationRequestDTO reservationReq, List<Reservation> reservations, Room room) {
+        validateIfSeatsAreInRoom(reservationReq, room);
         validateIfSeatsAreFree(reservationReq, reservations);
 
         if (isSinglePlaceLeftOverInRow(reservationReq.getSeats(), reservations, room)) {
             throw new IllegalArgumentException("There cannot be a single place left over in a row " +
                     "between two already reserved places");
+        }
+    }
+
+    private static void validateIfSeatsAreInRoom(ReservationRequestDTO reservationRequestDTO, Room room) {
+        int rowsInRoom = room.getNumberOfRows();
+        int seatsInRow = room.getNumberOfSeatsInRow();
+
+        for (ReservationSeatDTO seat: reservationRequestDTO.getSeats()) {
+            if (seat.getRow() >= rowsInRoom || seat.getSeat() >= seatsInRow) {
+                throw new IllegalArgumentException("No such seat in the screening room");
+            }
         }
     }
 
