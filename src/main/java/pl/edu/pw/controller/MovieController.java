@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import pl.edu.pw.dto.MovieRepertoireDTO;
 import pl.edu.pw.service.MovieService;
 
@@ -29,7 +30,7 @@ public class MovieController {
         try {
             return ResponseEntity.ok(movieService.getMovies(date, fromTime, toTime));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
