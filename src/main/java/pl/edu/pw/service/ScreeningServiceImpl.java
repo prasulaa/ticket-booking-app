@@ -22,7 +22,7 @@ public class ScreeningServiceImpl implements ScreeningService {
     public ScreeningDTO getScreening(Long id) {
         Optional<Screening> screeningOpt = screeningRepository.findById(id);
 
-        if(screeningOpt.isPresent()) {
+        if (screeningOpt.isPresent()) {
             Screening screening = screeningOpt.get();
             return ScreeningMapper.map(screening);
         } else {

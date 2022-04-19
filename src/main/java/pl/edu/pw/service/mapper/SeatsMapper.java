@@ -35,7 +35,7 @@ public class SeatsMapper {
     }
 
     private static boolean isAvailable(List<Reservation> reservations, int row, int seat) {
-        for (Reservation r: reservations) {
+        for (Reservation r : reservations) {
             if (r.getSeatRow() == row && r.getSeatNumber() == seat) {
                 return false;
             }

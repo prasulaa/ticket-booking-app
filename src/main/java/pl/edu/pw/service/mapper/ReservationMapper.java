@@ -14,7 +14,7 @@ public class ReservationMapper {
     public static List<Reservation> map(ReservationRequestDTO reservationReq, Screening screening) {
         List<Reservation> mappedReservations = new ArrayList<>();
 
-        for (ReservationSeatDTO seat: reservationReq.getSeats()) {
+        for (ReservationSeatDTO seat : reservationReq.getSeats()) {
             Reservation reservation = map(seat, reservationReq, screening);
             mappedReservations.add(reservation);
         }

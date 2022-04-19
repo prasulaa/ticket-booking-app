@@ -1,6 +1,5 @@
 package pl.edu.pw.controller;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +22,7 @@ public class ReservationController {
     }
 
     @PostMapping("/reservations")
-    public ResponseEntity addReservation(@RequestBody @Valid ReservationRequestDTO reservations) {
+    public ResponseEntity<ReservationResultDTO> addReservation(@RequestBody @Valid ReservationRequestDTO reservations) {
         try {
             return ResponseEntity.ok(reservationService.addReservation(reservations));
         } catch (IllegalArgumentException e) {

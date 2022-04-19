@@ -59,7 +59,7 @@ public class ReservationServiceImpl implements ReservationService {
     private double calculateReservationCost(List<Reservation> reservations) {
         double cost = 0.0;
 
-        for (Reservation r: reservations) {
+        for (Reservation r : reservations) {
             cost += TicketType.ticketCost(r.getTicketType());
         }
 

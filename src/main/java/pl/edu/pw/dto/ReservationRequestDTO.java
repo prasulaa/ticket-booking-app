@@ -1,10 +1,8 @@
 package pl.edu.pw.dto;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 public class ReservationRequestDTO {
@@ -20,7 +18,7 @@ public class ReservationRequestDTO {
     @NotNull(message = "Seat list has to be present")
     @NotEmpty(message = "Seat list must contain at least one seat")
     @Valid
-    private List< ReservationSeatDTO> seats;
+    private List<ReservationSeatDTO> seats;
 
     public ReservationRequestDTO() {
     }

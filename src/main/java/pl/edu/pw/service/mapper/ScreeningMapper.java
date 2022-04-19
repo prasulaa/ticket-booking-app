@@ -6,7 +6,7 @@ import pl.edu.pw.dto.ScreeningDTO;
 public class ScreeningMapper {
 
     public static ScreeningDTO map(Screening screening) {
-        if(screening == null) {
+        if (screening == null) {
             return null;
         } else {
             return mapScreening(screening);

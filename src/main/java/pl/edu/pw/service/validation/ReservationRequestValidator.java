@@ -60,7 +60,7 @@ public class ReservationRequestValidator {
         int rowsInRoom = room.getNumberOfRows();
         int seatsInRow = room.getNumberOfSeatsInRow();
 
-        for (ReservationSeatDTO seat: reservationRequestDTO.getSeats()) {
+        for (ReservationSeatDTO seat : reservationRequestDTO.getSeats()) {
             if (seat.getRow() >= rowsInRoom || seat.getSeat() >= seatsInRow) {
                 throw new IllegalArgumentException("No such seat in the screening room");
             }
