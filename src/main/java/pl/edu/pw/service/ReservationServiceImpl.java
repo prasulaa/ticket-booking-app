@@ -2,12 +2,10 @@ package pl.edu.pw.service;
 
 import org.springframework.stereotype.Service;
 import pl.edu.pw.domain.Reservation;
-import pl.edu.pw.domain.Room;
 import pl.edu.pw.domain.Screening;
 import pl.edu.pw.domain.TicketType;
 import pl.edu.pw.dto.ReservationRequestDTO;
 import pl.edu.pw.dto.ReservationResultDTO;
-import pl.edu.pw.dto.ReservationSeatDTO;
 import pl.edu.pw.repository.ReservationRepository;
 import pl.edu.pw.repository.ScreeningRepository;
 import pl.edu.pw.service.mapper.ReservationMapper;
