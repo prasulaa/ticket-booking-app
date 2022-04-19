@@ -1,16 +1,20 @@
 package pl.edu.pw.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 public class ReservationSeatDTO {
 
+    @PositiveOrZero
     @NotNull(message = "Row number has to be present")
     private Integer row;
+    @PositiveOrZero
     @NotNull(message = "Seat number has to be present")
     private Integer seat;
     @NotNull(message = "Ticket type has to be present")
-    @NotBlank(message = "Ticket type has to be present")
+    @NotEmpty(message = "Ticket type has to be present")
     private String ticketType;
 
     public ReservationSeatDTO() {

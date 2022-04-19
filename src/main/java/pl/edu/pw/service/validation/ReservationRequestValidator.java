@@ -6,13 +6,44 @@ import pl.edu.pw.domain.Screening;
 import pl.edu.pw.dto.ReservationRequestDTO;
 import pl.edu.pw.dto.ReservationSeatDTO;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class ReservationRequestValidator {
 
-    public static void validate(ReservationRequestDTO reservationReq, List<Reservation> reservations, Room room) {
+    private static int MIN_NAME_LENGTH = 3;
+    private static int ACCEPTABLE_TIME_TO_SCREENING = 15;
+
+    public static void validate(ReservationRequestDTO reservationReq, List<Reservation> reservations, Screening screening) {
+        validateScreeningDateTime(screening);
         validateNames(reservationReq);
-        validateSeats(reservationReq, reservations, room);
+        validateSeats(reservationReq, reservations, screening.getRoom());
+    }
+
+    private static void validateScreeningDateTime(Screening screening) {
+        LocalDate today = LocalDate.now();
+        LocalDate screeningDate = screening.getDate();
+
+        if (today.isAfter(screeningDate)) {
+            throw new IllegalArgumentException("The screening has already taken place");
+        } else if (today.isEqual(screeningDate)) {
+            validateScreeningTime(screening);
+        }
+    }
+
+    private static void validateScreeningTime(Screening screening) {
+        LocalTime now = LocalTime.now();
+        LocalTime screeningTime = screening.getTime();
+        LocalTime acceptableBookingTime = screeningTime.minusMinutes(ACCEPTABLE_TIME_TO_SCREENING);
+
+        if (now.isAfter(acceptableBookingTime)) {
+            if (now.isBefore(screeningTime)) {
+                throw new IllegalArgumentException("Time for reservation for the screening has expired");
+            } else {
+                throw new IllegalArgumentException("The screening has already taken place");
+            }
+        }
     }
 
     private static void validateSeats(ReservationRequestDTO reservationReq, List<Reservation> reservations, Room room) {
@@ -103,7 +134,7 @@ public class ReservationRequestValidator {
     }
 
     private static void validateName(String name) {
-        if (name.length() < 3) {
+        if (name.length() < MIN_NAME_LENGTH) {
             throw new IllegalArgumentException("Name must be at lest 3 characters long");
         }
         if (!Character.isUpperCase(name.charAt(0))) {

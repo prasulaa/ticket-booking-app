@@ -32,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         if (screeningOpt.isPresent()) {
             Screening screening = screeningOpt.get();
-            ReservationRequestValidator.validate(reservationReq, reservations, screening.getRoom());
+            ReservationRequestValidator.validate(reservationReq, reservations, screening);
 
             List<Reservation> mappedReservations = ReservationMapper.map(reservationReq, screening);
             saveReservation(mappedReservations, screening);

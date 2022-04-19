@@ -71,7 +71,7 @@ public class DbInit implements CommandLineRunner {
                 room2));
         screenings3.add(new Screening(
                 LocalDate.parse("2022-04-20"),
-                LocalTime.parse("21:00:00"),
+                LocalTime.parse("16:15:00"),
                 movie3,
                 room1));
         movie3.setScreenings(screenings3);
