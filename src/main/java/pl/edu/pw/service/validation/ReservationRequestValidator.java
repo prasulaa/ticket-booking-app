@@ -15,10 +15,10 @@ public class ReservationRequestValidator {
     private static int MIN_NAME_LENGTH = 3;
     private static int ACCEPTABLE_TIME_TO_SCREENING = 15;
 
-    public static void validate(ReservationRequestDTO reservationReq, List<Reservation> reservations, Screening screening) {
+    public static void validate(ReservationRequestDTO reservationReq, Screening screening) {
         validateScreeningDateTime(screening);
         validateNames(reservationReq);
-        validateSeats(reservationReq, reservations, screening.getRoom());
+        validateSeats(reservationReq, screening.getReservations(), screening.getRoom());
     }
 
     private static void validateScreeningDateTime(Screening screening) {

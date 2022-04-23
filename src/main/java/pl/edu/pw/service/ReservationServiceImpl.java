@@ -17,22 +17,19 @@ import java.util.Optional;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
-    private final ReservationRepository reservationRepository;
     private final ScreeningRepository screeningRepository;
 
-    public ReservationServiceImpl(ReservationRepository reservationRepository, ScreeningRepository screeningRepository) {
-        this.reservationRepository = reservationRepository;
+    public ReservationServiceImpl(ScreeningRepository screeningRepository) {
         this.screeningRepository = screeningRepository;
     }
 
     @Override
     public ReservationResultDTO addReservation(ReservationRequestDTO reservationReq) {
-        List<Reservation> reservations = reservationRepository.findAllByScreening_Id(reservationReq.getScreeningId());
         Optional<Screening> screeningOpt = screeningRepository.findById(reservationReq.getScreeningId());
 
         if (screeningOpt.isPresent()) {
             Screening screening = screeningOpt.get();
-            ReservationRequestValidator.validate(reservationReq, reservations, screening);
+            ReservationRequestValidator.validate(reservationReq, screening);
 
             List<Reservation> mappedReservations = ReservationMapper.map(reservationReq, screening);
             saveReservation(mappedReservations, screening);
